@@ -9,6 +9,10 @@ from api.views import RegisterView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root':
+settings.MEDIA_ROOT}), #serve media files when deployed
+    re_path(r'^static/(?P<path>.*)$', serve, {'document_root':
+settings.STATIC_ROOT}), #serve static files when deployed
     path('api-auth', include('rest_framework.urls')), #allow login/logout for non-admin from local server page
     path('api/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
